@@ -332,57 +332,7 @@ app.post('/api/projects', (req, res) => {
     });
 });
 
-app.post('/api/projects/:id/vote', (req, res) => {
-    const projectId = req.params.id;
-    const { vote_type } = req.body; // 1 for upvote, -1 for downvote, 0 to remove vote
-
-    if (![1, -1, 0].includes(vote_type)) {
-        return res.status(400).json({ error: 'Invalid vote type' });
-    }
-
-    if (vote_type === 0) {
-        // Remove vote
-        db.run('DELETE FROM votes WHERE user_id = ? AND project_id = ?',
-            [req.user.id, projectId], function(err) {
-            if (err) {
-                return res.status(500).json({ error: 'Database error' });
-            }
-            updateProjectVoteCount(projectId, res);
-        });
-    } else {
-        // Add or update vote
-        db.run(`
-            INSERT OR REPLACE INTO votes (user_id, project_id, vote_type)
-            VALUES (?, ?, ?)
-        `, [req.user.id, projectId, vote_type], function(err) {
-            if (err) {
-                return res.status(500).json({ error: 'Database error' });
-            }
-            updateProjectVoteCount(projectId, res);
-        });
-    }
-});
-
-function updateProjectVoteCount(projectId, res) {
-    db.get(`
-        SELECT SUM(vote_type) as total_votes
-        FROM votes
-        WHERE project_id = ?
-    `, [projectId], (err, result) => {
-        if (err) {
-            return res.status(500).json({ error: 'Database error' });
-        }
-
-        const totalVotes = result.total_votes || 0;
-
-        db.run('UPDATE projects SET votes = ? WHERE id = ?', [totalVotes, projectId], (err) => {
-            if (err) {
-                return res.status(500).json({ error: 'Database error' });
-            }
-            res.json({ message: 'Vote recorded', votes: totalVotes });
-        });
-    });
-}
+// Voting removed - simple showcase platform
 
 app.post('/api/projects/:id/comments', authenticateToken, (req, res) => {
     const projectId = req.params.id;
