@@ -332,7 +332,7 @@ app.post('/api/projects', (req, res) => {
     });
 });
 
-app.post('/api/projects/:id/vote', authenticateToken, (req, res) => {
+app.post('/api/projects/:id/vote', (req, res) => {
     const projectId = req.params.id;
     const { vote_type } = req.body; // 1 for upvote, -1 for downvote, 0 to remove vote
 
