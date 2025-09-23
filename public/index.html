@@ -346,6 +346,114 @@
             border: 1px solid #d2691e;
         }
 
+        /* Modal Styles */
+        .modal {
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 0;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 600px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: modalSlideIn 0.3s ease-out;
+        }
+
+        @keyframes modalSlideIn {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .modal-header {
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(135deg, #ff8c00 0%, #d2691e 100%);
+            color: white;
+            border-radius: 15px 15px 0 0;
+        }
+
+        .modal-header h2 {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+
+        .close {
+            color: white;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+
+        .close:hover {
+            opacity: 0.7;
+        }
+
+        .modal-body {
+            padding: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #2c1810;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+            font-family: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #ff8c00;
+            box-shadow: 0 0 0 3px rgba(255, 140, 0, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+            margin-top: 2rem;
+        }
+
+        .auth-form {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
         @media (max-width: 768px) {
             .hero h1 {
                 font-size: 2rem;
@@ -366,6 +474,19 @@
             .hero-buttons {
                 flex-direction: column;
                 align-items: center;
+            }
+
+            .modal-content {
+                margin: 10% auto;
+                width: 95%;
+            }
+
+            .modal-body {
+                padding: 1rem;
+            }
+
+            .form-actions {
+                flex-direction: column;
             }
         }
     </style>
@@ -399,9 +520,9 @@
                 <a href="#projects" class="btn btn-primary">
                     <i class="fas fa-rocket"></i> Explore Projects
                 </a>
-                <a href="#submit" class="btn btn-secondary">
+                <button class="btn btn-secondary" onclick="showSubmitModal()">
                     <i class="fas fa-plus"></i> Submit Project
-                </a>
+                </button>
             </div>
         </div>
     </section>
@@ -476,13 +597,129 @@ curl -X POST https://claude-creations.vercel.app/api/projects \
                     <i class="fas fa-rocket" style="font-size: 3rem; color: #ddd; margin-bottom: 1rem;"></i>
                     <h3>No projects found</h3>
                     <p>Be the first to share your Claude Code creation!</p>
-                    <a href="#submit" class="btn btn-primary" style="margin-top: 1rem;">
+                    <button class="btn btn-primary" style="margin-top: 1rem;" onclick="showSubmitModal()">
                         <i class="fas fa-plus"></i> Submit First Project
-                    </a>
+                    </button>
                 </div>
             </section>
         </div>
     </main>
+
+    <!-- Project Submission Modal -->
+    <div id="submitModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Submit Your Claude Code Project</h2>
+                <span class="close" onclick="closeSubmitModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="submitForm">
+                    <div class="form-group">
+                        <label for="projectTitle">Project Title *</label>
+                        <input type="text" id="projectTitle" name="title" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="projectDescription">Description *</label>
+                        <textarea id="projectDescription" name="description" rows="4" required placeholder="What does your project do? How did you build it with Claude Code?"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="projectGithub">GitHub URL</label>
+                        <input type="url" id="projectGithub" name="github_url" placeholder="https://github.com/username/repo">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="projectDemo">Demo URL</label>
+                        <input type="url" id="projectDemo" name="demo_url" placeholder="https://your-project.vercel.app">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="projectCategory">Category *</label>
+                        <select id="projectCategory" name="category" required>
+                            <option value="">Select a category</option>
+                            <option value="tools">Tools & Utilities</option>
+                            <option value="automation">Automation & Scripts</option>
+                            <option value="web-apps">Web Applications</option>
+                            <option value="apis">APIs & Services</option>
+                            <option value="experiments">Experiments & Fun</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="projectTags">Tags</label>
+                        <input type="text" id="projectTags" name="tags" placeholder="claude-code, automation, api, web-app (comma separated)">
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" onclick="closeSubmitModal()">Cancel</button>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-rocket"></i> Submit Project
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login/Register Modal -->
+    <div id="authModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="authTitle">Login to Claude Creations</h2>
+                <span class="close" onclick="closeAuthModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div id="loginForm" class="auth-form">
+                    <form onsubmit="handleLogin(event)">
+                        <div class="form-group">
+                            <label for="loginEmail">Email</label>
+                            <input type="email" id="loginEmail" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="loginPassword">Password</label>
+                            <input type="password" id="loginPassword" required>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">Login</button>
+                        </div>
+                    </form>
+                    <p style="margin-top: 1rem; text-align: center;">
+                        Don't have an account?
+                        <a href="#" onclick="showRegisterForm()" style="color: #ff8c00;">Sign up here</a>
+                    </p>
+                </div>
+
+                <div id="registerForm" class="auth-form" style="display: none;">
+                    <form onsubmit="handleRegister(event)">
+                        <div class="form-group">
+                            <label for="registerUsername">Username</label>
+                            <input type="text" id="registerUsername" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="registerEmail">Email</label>
+                            <input type="email" id="registerEmail" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="registerPassword">Password</label>
+                            <input type="password" id="registerPassword" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="registerGithub">GitHub Username (optional)</label>
+                            <input type="text" id="registerGithub" placeholder="your-github-username">
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">Create Account</button>
+                        </div>
+                    </form>
+                    <p style="margin-top: 1rem; text-align: center;">
+                        Already have an account?
+                        <a href="#" onclick="showLoginForm()" style="color: #ff8c00;">Login here</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script>
         // API base URL
@@ -667,18 +904,166 @@ curl -X POST https://claude-creations.vercel.app/api/projects \
 
             if (authToken) {
                 authButtons.innerHTML = `
-                    <a href="#submit" class="btn btn-primary">
+                    <button class="btn btn-primary" onclick="showSubmitModal()">
                         <i class="fas fa-plus"></i> Submit Project
-                    </a>
-                    <a href="#" class="btn btn-secondary" onclick="logout()">
+                    </button>
+                    <button class="btn btn-secondary" onclick="logout()">
                         <i class="fas fa-sign-out-alt"></i> Logout
-                    </a>
+                    </button>
                 `;
             } else {
                 authButtons.innerHTML = `
-                    <a href="#" class="btn btn-secondary" id="loginBtn">Login</a>
-                    <a href="#" class="btn btn-primary" id="signupBtn">Sign Up</a>
+                    <button class="btn btn-secondary" onclick="showAuthModal('login')">Login</button>
+                    <button class="btn btn-primary" onclick="showAuthModal('register')">Sign Up</button>
                 `;
+            }
+        }
+
+        // Modal Functions
+        function showSubmitModal() {
+            if (!authToken) {
+                showAuthModal('login');
+                return;
+            }
+            document.getElementById('submitModal').style.display = 'block';
+        }
+
+        function closeSubmitModal() {
+            document.getElementById('submitModal').style.display = 'none';
+            document.getElementById('submitForm').reset();
+        }
+
+        function showAuthModal(type = 'login') {
+            const modal = document.getElementById('authModal');
+            const title = document.getElementById('authTitle');
+
+            if (type === 'register') {
+                title.textContent = 'Join Claude Creations';
+                showRegisterForm();
+            } else {
+                title.textContent = 'Login to Claude Creations';
+                showLoginForm();
+            }
+
+            modal.style.display = 'block';
+        }
+
+        function closeAuthModal() {
+            document.getElementById('authModal').style.display = 'none';
+        }
+
+        function showLoginForm() {
+            document.getElementById('loginForm').style.display = 'block';
+            document.getElementById('registerForm').style.display = 'none';
+        }
+
+        function showRegisterForm() {
+            document.getElementById('loginForm').style.display = 'none';
+            document.getElementById('registerForm').style.display = 'block';
+        }
+
+        // Authentication Functions
+        async function handleLogin(event) {
+            event.preventDefault();
+
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+
+            try {
+                const response = await fetch(`${API_BASE}/auth/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    authToken = data.token;
+                    localStorage.setItem('authToken', authToken);
+                    updateAuthUI();
+                    closeAuthModal();
+                    alert('Logged in successfully!');
+                } else {
+                    alert('Login failed: ' + data.error);
+                }
+            } catch (error) {
+                alert('Login error: ' + error.message);
+            }
+        }
+
+        async function handleRegister(event) {
+            event.preventDefault();
+
+            const username = document.getElementById('registerUsername').value;
+            const email = document.getElementById('registerEmail').value;
+            const password = document.getElementById('registerPassword').value;
+            const github_username = document.getElementById('registerGithub').value;
+
+            try {
+                const response = await fetch(`${API_BASE}/auth/register`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, email, password, github_username })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    authToken = data.token;
+                    localStorage.setItem('authToken', authToken);
+                    updateAuthUI();
+                    closeAuthModal();
+                    alert('Account created successfully!');
+                } else {
+                    alert('Registration failed: ' + data.error);
+                }
+            } catch (error) {
+                alert('Registration error: ' + error.message);
+            }
+        }
+
+        // Project Submission
+        document.getElementById('submitForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+
+            const formData = new FormData(this);
+            const projectData = Object.fromEntries(formData);
+
+            try {
+                const response = await fetch(`${API_BASE}/projects`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${authToken}`
+                    },
+                    body: JSON.stringify(projectData)
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    alert('Project submitted successfully!');
+                    closeSubmitModal();
+                    loadProjects(); // Refresh project list
+                } else {
+                    alert('Submission failed: ' + data.error);
+                }
+            } catch (error) {
+                alert('Submission error: ' + error.message);
+            }
+        });
+
+        // Close modals when clicking outside
+        window.onclick = function(event) {
+            const submitModal = document.getElementById('submitModal');
+            const authModal = document.getElementById('authModal');
+
+            if (event.target === submitModal) {
+                closeSubmitModal();
+            }
+            if (event.target === authModal) {
+                closeAuthModal();
             }
         }
 
