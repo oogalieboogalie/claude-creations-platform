@@ -965,9 +965,12 @@ curl -X POST https://claude-creations.vercel.app/api/projects \
         // Authentication Functions
         async function handleLogin(event) {
             event.preventDefault();
+            console.log('Login form submitted');
 
             const email = document.getElementById('loginEmail').value;
             const password = document.getElementById('loginPassword').value;
+
+            console.log('Login attempt:', { email, apiBase: API_BASE });
 
             try {
                 const response = await fetch(`${API_BASE}/auth/login`, {
@@ -976,7 +979,9 @@ curl -X POST https://claude-creations.vercel.app/api/projects \
                     body: JSON.stringify({ email, password })
                 });
 
+                console.log('Login response status:', response.status);
                 const data = await response.json();
+                console.log('Login response data:', data);
 
                 if (response.ok) {
                     authToken = data.token;
@@ -988,17 +993,21 @@ curl -X POST https://claude-creations.vercel.app/api/projects \
                     alert('Login failed: ' + data.error);
                 }
             } catch (error) {
-                alert('Login error: ' + error.message);
+                console.error('Login error:', error);
+                alert('Login error: ' + error.message + '. Check console for details.');
             }
         }
 
         async function handleRegister(event) {
             event.preventDefault();
+            console.log('Register form submitted');
 
             const username = document.getElementById('registerUsername').value;
             const email = document.getElementById('registerEmail').value;
             const password = document.getElementById('registerPassword').value;
             const github_username = document.getElementById('registerGithub').value;
+
+            console.log('Register attempt:', { username, email, github_username, apiBase: API_BASE });
 
             try {
                 const response = await fetch(`${API_BASE}/auth/register`, {
@@ -1007,7 +1016,9 @@ curl -X POST https://claude-creations.vercel.app/api/projects \
                     body: JSON.stringify({ username, email, password, github_username })
                 });
 
+                console.log('Register response status:', response.status);
                 const data = await response.json();
+                console.log('Register response data:', data);
 
                 if (response.ok) {
                     authToken = data.token;
@@ -1019,7 +1030,8 @@ curl -X POST https://claude-creations.vercel.app/api/projects \
                     alert('Registration failed: ' + data.error);
                 }
             } catch (error) {
-                alert('Registration error: ' + error.message);
+                console.error('Registration error:', error);
+                alert('Registration error: ' + error.message + '. Check console for details.');
             }
         }
 
