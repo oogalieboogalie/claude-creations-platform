@@ -67,7 +67,7 @@ function initDatabase() {
     // Projects table
     db.run(`CREATE TABLE IF NOT EXISTS projects (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
-        user_id INTEGER NOT NULL,
+        creator_name VARCHAR(100) NOT NULL,
         title VARCHAR(200) NOT NULL,
         description TEXT,
         github_url VARCHAR(500),
@@ -77,8 +77,7 @@ function initDatabase() {
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
         updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
         votes INTEGER DEFAULT 0,
-        featured BOOLEAN DEFAULT FALSE,
-        FOREIGN KEY (user_id) REFERENCES users (id)
+        featured BOOLEAN DEFAULT FALSE
     )`);
 
     // Votes table
@@ -243,10 +242,9 @@ app.get('/api/projects', (req, res) => {
     const { category, search, sort = 'created_at', order = 'DESC', limit = 20, offset = 0 } = req.query;
 
     let query = `
-        SELECT p.*, u.username, u.github_username,
+        SELECT p.*,
                COUNT(c.id) as comment_count
         FROM projects p
-        JOIN users u ON p.user_id = u.id
         LEFT JOIN comments c ON p.id = c.project_id
     `;
 
@@ -283,9 +281,8 @@ app.get('/api/projects/:id', (req, res) => {
     const projectId = req.params.id;
 
     db.get(`
-        SELECT p.*, u.username, u.github_username
+        SELECT p.*
         FROM projects p
-        JOIN users u ON p.user_id = u.id
         WHERE p.id = ?
     `, [projectId], (err, project) => {
         if (err) {
@@ -313,17 +310,17 @@ app.get('/api/projects/:id', (req, res) => {
     });
 });
 
-app.post('/api/projects', authenticateToken, (req, res) => {
-    const { title, description, github_url, demo_url, tags, category } = req.body;
+app.post('/api/projects', (req, res) => {
+    const { title, description, github_url, demo_url, tags, category, creator_name } = req.body;
 
-    if (!title || !description) {
-        return res.status(400).json({ error: 'Title and description are required' });
+    if (!title || !description || !creator_name) {
+        return res.status(400).json({ error: 'Title, description, and creator name are required' });
     }
 
     db.run(`
-        INSERT INTO projects (user_id, title, description, github_url, demo_url, tags, category)
-        VALUES (?, ?, ?, ?, ?, ?, ?)
-    `, [req.user.id, title, description, github_url, demo_url, tags, category], function(err) {
+        INSERT INTO projects (creator_name, title, description, github_url, demo_url, tags, category, created_at)
+        VALUES (?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)
+    `, [creator_name, title, description, github_url, demo_url, tags, category], function(err) {
         if (err) {
             return res.status(500).json({ error: 'Failed to create project' });
         }

@@ -615,8 +615,14 @@ curl -X POST https://claude-creations.vercel.app/api/projects \
             <div class="modal-body">
                 <form id="submitForm">
                     <div class="form-group">
+                        <label for="creatorName">Social Handle *</label>
+                        <input type="text" id="creatorName" name="creator_name" required placeholder="@yourhandle, Reddit username, etc.">
+                        <small style="color: #666; font-size: 0.9rem;">How you want to be credited</small>
+                    </div>
+
+                    <div class="form-group">
                         <label for="projectTitle">Project Title *</label>
-                        <input type="text" id="projectTitle" name="title" required>
+                        <input type="text" id="projectTitle" name="title" required placeholder="My Awesome Claude Code Project">
                     </div>
 
                     <div class="form-group">
@@ -805,8 +811,7 @@ curl -X POST https://claude-creations.vercel.app/api/projects \
                         <div>
                             <h3 class="project-title">${escapeHtml(project.title)}</h3>
                             <div class="project-author">
-                                by ${escapeHtml(project.username)}
-                                ${project.github_username ? `(<a href="https://github.com/${project.github_username}" target="_blank">@${project.github_username}</a>)` : ''}
+                                by ${escapeHtml(project.creator_name)}
                             </div>
                         </div>
                         <div class="project-votes">
@@ -901,30 +906,18 @@ curl -X POST https://claude-creations.vercel.app/api/projects \
 
         function updateAuthUI() {
             const authButtons = document.getElementById('authButtons');
-
-            if (authToken) {
-                authButtons.innerHTML = `
-                    <button class="btn btn-primary" onclick="showSubmitModal()">
-                        <i class="fas fa-plus"></i> Submit Project
-                    </button>
-                    <button class="btn btn-secondary" onclick="logout()">
-                        <i class="fas fa-sign-out-alt"></i> Logout
-                    </button>
-                `;
-            } else {
-                authButtons.innerHTML = `
-                    <button class="btn btn-secondary" onclick="showAuthModal('login')">Login</button>
-                    <button class="btn btn-primary" onclick="showAuthModal('register')">Sign Up</button>
-                `;
-            }
+            authButtons.innerHTML = `
+                <button class="btn btn-primary" onclick="showSubmitModal()">
+                    <i class="fas fa-plus"></i> Submit Project
+                </button>
+                <a href="https://github.com/oogalieboogalie/claude-creations-platform" target="_blank" class="btn btn-secondary">
+                    <i class="fab fa-github"></i> GitHub
+                </a>
+            `;
         }
 
         // Modal Functions
         function showSubmitModal() {
-            if (!authToken) {
-                showAuthModal('login');
-                return;
-            }
             document.getElementById('submitModal').style.display = 'block';
         }
 
@@ -1038,31 +1031,36 @@ curl -X POST https://claude-creations.vercel.app/api/projects \
         // Project Submission
         document.getElementById('submitForm').addEventListener('submit', async function(event) {
             event.preventDefault();
+            console.log('Project submission started');
 
             const formData = new FormData(this);
             const projectData = Object.fromEntries(formData);
+
+            console.log('Project data:', projectData);
 
             try {
                 const response = await fetch(`${API_BASE}/projects`, {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${authToken}`
+                        'Content-Type': 'application/json'
                     },
                     body: JSON.stringify(projectData)
                 });
 
+                console.log('Submit response status:', response.status);
                 const data = await response.json();
+                console.log('Submit response data:', data);
 
                 if (response.ok) {
-                    alert('Project submitted successfully!');
+                    alert('Project submitted successfully! 🚀');
                     closeSubmitModal();
                     loadProjects(); // Refresh project list
                 } else {
                     alert('Submission failed: ' + data.error);
                 }
             } catch (error) {
-                alert('Submission error: ' + error.message);
+                console.error('Submission error:', error);
+                alert('Submission error: ' + error.message + '. Check console for details.');
             }
         });
 
