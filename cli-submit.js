@@ -95,17 +95,18 @@ class ClaudeCreationsCLI {
     }
 
     async submitProject(projectData) {
-        if (!this.config.token) {
+        if (!this.config.token || !this.config.user) {
             console.error('❌ Not logged in. Run: claude-submit login');
             return false;
         }
+
+        projectData.creator_name = this.config.user.username;
 
         try {
             const response = await fetch(`${API_BASE}/projects`, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${this.config.token}`
+                    'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(projectData)
             });
