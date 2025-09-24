@@ -554,10 +554,10 @@
                 <div class="code-block">
 curl -X POST https://claude-creations.vercel.app/api/projects \
   -H "Content-Type: application/json" \
-  -H "Authorization: Bearer YOUR_TOKEN" \
   -d '{
+    "creator_name": "your_username",
     "title": "My Claude Code Project",
-    "description": "Built with Claude Code...",
+    "description": "A new project created via curl.",
     "github_url": "https://github.com/user/repo",
     "tags": "automation,api,claude-code",
     "category": "tools"
