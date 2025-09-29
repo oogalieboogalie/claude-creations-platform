@@ -132,20 +132,16 @@ app.get('/', (req, res) => {
 // API Info
 app.get('/api', (req, res) => {
     res.json({
-        name: 'Claude Creations Platform API',
+        name: 'Censai Says Weblog API',
         version: '1.0.0',
-        description: 'Community platform for Claude Code developers',
+        description: 'Personal blog platform for opinionated solopreneur thoughts',
         endpoints: {
-            'GET /api/projects': 'Get all projects',
-            'POST /api/projects': 'Create new project (auth required)',
-            'GET /api/projects/:id': 'Get specific project',
-            'PUT /api/projects/:id': 'Update project (auth required)',
-            'DELETE /api/projects/:id': 'Delete project (auth required)',
-            'POST /api/projects/:id/vote': 'Vote on project (auth required)',
-            'POST /api/projects/:id/comments': 'Add comment (auth required)',
-            'POST /api/auth/register': 'Register new user',
-            'POST /api/auth/login': 'Login user',
-            'GET /api/auth/profile': 'Get user profile (auth required)'
+            'GET /api/projects': 'Get all blog posts',
+            'POST /api/projects': 'Create new blog post',
+            'GET /api/projects/:id': 'Get specific blog post',
+            'PUT /api/projects/:id': 'Update blog post',
+            'DELETE /api/projects/:id': 'Delete blog post',
+            'POST /api/projects/:id/comments': 'Add comment to blog post'
         }
     });
 });
@@ -375,7 +371,7 @@ app.use((req, res) => {
 
 // Start server
 app.listen(PORT, () => {
-    console.log(`Claude Creations Platform running on port ${PORT}`);
+    console.log(`Censai Says Weblog running on port ${PORT}`);
     console.log(`Visit: http://localhost:${PORT}`);
 });
 

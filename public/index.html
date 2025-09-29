@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Claude Creations - Community Showcase</title>
+    <title>Censai Says Weblog - Thoughts of a Wandering Solopreneur</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
     <style>
         * {
@@ -495,33 +495,34 @@
     <header>
         <nav class="container">
             <div class="logo">
-                <i class="fas fa-palette"></i> Claude Creations
+                <i class="fas fa-pen-fancy"></i> Censai Says
             </div>
             <ul class="nav-links">
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#api">API</a></li>
-                <li><a href="#community">Community</a></li>
+                <li><a href="#posts">Posts</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#archive">Archive</a></li>
             </ul>
             <div class="auth-buttons" id="authButtons">
-                <a href="#" class="btn btn-secondary" id="loginBtn" onclick="showAuthModal('login')">Login</a>
-                <a href="#" class="btn btn-primary" id="signupBtn" onclick="showAuthModal('signup')">Sign Up</a>
+                <button class="btn btn-primary" onclick="showSubmitModal()">
+                    <i class="fas fa-pen"></i> New Post
+                </button>
             </div>
         </nav>
     </header>
 
     <section class="hero">
         <div class="container">
-            <h1>Claude Code Community Showcase</h1>
-            <p>Discover, share, and collaborate on amazing projects built with Claude Code</p>
+            <h1>Censai Says Weblog</h1>
+            <p>Highly opinionated thoughts from a solopreneur wandering through life as biodegradable material</p>
             <div style="margin-top: 1rem; opacity: 0.9; font-family: 'SF Mono', monospace; font-size: 0.9rem;">
-                <code>$ claude-submit submit --auto</code> → Share your creation instantly
+                <em>"Wandering through the digital landscape, leaving thoughts along the way..."</em>
             </div>
             <div class="hero-buttons">
-                <a href="#projects" class="btn btn-primary">
-                    <i class="fas fa-rocket"></i> Explore Projects
+                <a href="#posts" class="btn btn-primary">
+                    <i class="fas fa-book-open"></i> Read Posts
                 </a>
                 <button class="btn btn-secondary" onclick="showSubmitModal()">
-                    <i class="fas fa-plus"></i> Submit Project
+                    <i class="fas fa-pen"></i> New Post
                 </button>
             </div>
         </div>
@@ -532,15 +533,15 @@
             <section id="stats" class="stats">
                 <div class="stat-card">
                     <div class="stat-number" id="totalProjects">0</div>
-                    <div class="stat-label">Total Projects</div>
+                    <div class="stat-label">Total Posts</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-number" id="totalUsers">0</div>
-                    <div class="stat-label">Community Members</div>
+                    <div class="stat-label">Words Written</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-number" id="totalVotes">0</div>
-                    <div class="stat-label">Total Votes</div>
+                    <div class="stat-label">Days Blogging</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-number" id="totalCategories">5</div>
@@ -549,33 +550,29 @@
             </section>
 
             <section id="api" class="api-info">
-                <h3><i class="fas fa-terminal"></i> CLI Integration for Claude Code</h3>
-                <p>Submit projects directly from your terminal using our API:</p>
+                <h3><i class="fas fa-quote-left"></i> About This Blog</h3>
+                <p>Welcome to my corner of the internet where I share unfiltered thoughts on entrepreneurship, technology, and life as biodegradable material navigating the digital age:</p>
                 <div class="code-block">
-curl -X POST https://claude-creations.vercel.app/api/projects \
-  -H "Content-Type: application/json" \
-  -d '{
-    "creator_name": "your_username",
-    "title": "My Claude Code Project",
-    "description": "A new project created via curl.",
-    "github_url": "https://github.com/user/repo",
-    "tags": "automation,api,claude-code",
-    "category": "tools"
-  }'
+"As a solopreneur, I've learned that opinions are like code - 
+they're better when they're well-structured, thoroughly tested, 
+and occasionally refactored. But unlike code, opinions should 
+come with warnings about their expiration date."
+
+- Censai, wandering through the startup ecosystem
                 </div>
-                <p><strong>Categories:</strong> tools, automation, web-apps, apis, experiments</p>
+                <p><strong>Topics:</strong> entrepreneurship, technology, life thoughts, business insights, random musings</p>
             </section>
 
             <section id="projects">
                 <div class="filters">
-                    <input type="text" class="search-box" id="searchBox" placeholder="Search projects...">
+                    <input type="text" class="search-box" id="searchBox" placeholder="Search posts...">
                     <select class="filter-select" id="categoryFilter">
                         <option value="all">All Categories</option>
-                        <option value="tools">Tools</option>
-                        <option value="automation">Automation</option>
-                        <option value="web-apps">Web Apps</option>
-                        <option value="apis">APIs</option>
-                        <option value="experiments">Experiments</option>
+                        <option value="entrepreneurship">Entrepreneurship</option>
+                        <option value="technology">Technology</option>
+                        <option value="life-thoughts">Life Thoughts</option>
+                        <option value="business">Business</option>
+                        <option value="random">Random Musings</option>
                     </select>
                     <select class="filter-select" id="sortFilter">
                         <option value="created_at">Newest</option>
@@ -595,10 +592,10 @@ curl -X POST https://claude-creations.vercel.app/api/projects \
 
                 <div id="emptyState" class="empty-state" style="display: none;">
                     <i class="fas fa-rocket" style="font-size: 3rem; color: #ddd; margin-bottom: 1rem;"></i>
-                    <h3>No projects found</h3>
-                    <p>Be the first to share your Claude Code creation!</p>
+                    <h3>No posts yet</h3>
+                    <p>The thoughts are brewing... Check back soon for opinionated content!</p>
                     <button class="btn btn-primary" style="margin-top: 1rem;" onclick="showSubmitModal()">
-                        <i class="fas fa-plus"></i> Submit First Project
+                        <i class="fas fa-pen"></i> Write First Post
                     </button>
                 </div>
             </section>
@@ -609,58 +606,58 @@ curl -X POST https://claude-creations.vercel.app/api/projects \
     <div id="submitModal" class="modal" style="display: none;">
         <div class="modal-content">
             <div class="modal-header">
-                <h2>Submit Your Claude Code Project</h2>
+                <h2>Write a New Blog Post</h2>
                 <span class="close" onclick="closeSubmitModal()">&times;</span>
             </div>
             <div class="modal-body">
                 <form id="submitForm">
                     <div class="form-group">
-                        <label for="creatorName">Social Handle *</label>
-                        <input type="text" id="creatorName" name="creator_name" required placeholder="@yourhandle, Reddit username, etc.">
-                        <small style="color: #666; font-size: 0.9rem;">How you want to be credited</small>
+                        <label for="creatorName">Author Name *</label>
+                        <input type="text" id="creatorName" name="creator_name" required placeholder="Censai" value="Censai">
+                        <small style="color: #666; font-size: 0.9rem;">Author attribution for this post</small>
                     </div>
 
                     <div class="form-group">
-                        <label for="projectTitle">Project Title *</label>
-                        <input type="text" id="projectTitle" name="title" required placeholder="My Awesome Claude Code Project">
+                        <label for="projectTitle">Post Title *</label>
+                        <input type="text" id="projectTitle" name="title" required placeholder="My Highly Opinionated Take on...">
                     </div>
 
                     <div class="form-group">
-                        <label for="projectDescription">Description *</label>
-                        <textarea id="projectDescription" name="description" rows="4" required placeholder="What does your project do? How did you build it with Claude Code?"></textarea>
+                        <label for="projectDescription">Post Content *</label>
+                        <textarea id="projectDescription" name="description" rows="8" required placeholder="Share your thoughts, insights, rants, or musings... This is your space to be opinionated!"></textarea>
                     </div>
 
                     <div class="form-group">
-                        <label for="projectGithub">GitHub URL</label>
-                        <input type="url" id="projectGithub" name="github_url" placeholder="https://github.com/username/repo">
+                        <label for="projectGithub">Related Link</label>
+                        <input type="url" id="projectGithub" name="github_url" placeholder="https://example.com/relevant-article">
                     </div>
 
                     <div class="form-group">
-                        <label for="projectDemo">Demo URL</label>
-                        <input type="url" id="projectDemo" name="demo_url" placeholder="https://your-project.vercel.app">
+                        <label for="projectDemo">External Reference</label>
+                        <input type="url" id="projectDemo" name="demo_url" placeholder="https://another-relevant-link.com">
                     </div>
 
                     <div class="form-group">
                         <label for="projectCategory">Category *</label>
                         <select id="projectCategory" name="category" required>
                             <option value="">Select a category</option>
-                            <option value="tools">Tools & Utilities</option>
-                            <option value="automation">Automation & Scripts</option>
-                            <option value="web-apps">Web Applications</option>
-                            <option value="apis">APIs & Services</option>
-                            <option value="experiments">Experiments & Fun</option>
+                            <option value="entrepreneurship">Entrepreneurship</option>
+                            <option value="technology">Technology</option>
+                            <option value="life-thoughts">Life Thoughts</option>
+                            <option value="business">Business</option>
+                            <option value="random">Random Musings</option>
                         </select>
                     </div>
 
                     <div class="form-group">
                         <label for="projectTags">Tags</label>
-                        <input type="text" id="projectTags" name="tags" placeholder="claude-code, automation, api, web-app (comma separated)">
+                        <input type="text" id="projectTags" name="tags" placeholder="opinion, rant, insight, startup, personal (comma separated)">
                     </div>
 
                     <div class="form-actions">
                         <button type="button" class="btn btn-secondary" onclick="closeSubmitModal()">Cancel</button>
                         <button type="submit" class="btn btn-primary">
-                            <i class="fas fa-rocket"></i> Submit Project
+                            <i class="fas fa-pen"></i> Publish Post
                         </button>
                     </div>
                 </form>
@@ -877,11 +874,8 @@ curl -X POST https://claude-creations.vercel.app/api/projects \
             const authButtons = document.getElementById('authButtons');
             authButtons.innerHTML = `
                 <button class="btn btn-primary" onclick="showSubmitModal()">
-                    <i class="fas fa-plus"></i> Submit Project
+                    <i class="fas fa-pen"></i> New Post
                 </button>
-                <a href="https://github.com/oogalieboogalie/claude-creations-platform" target="_blank" class="btn btn-secondary">
-                    <i class="fab fa-github"></i> GitHub
-                </a>
             `;
         }
 

@@ -1,7 +1,7 @@
 {
-  "name": "claude-creations-platform",
+  "name": "censai-says-weblog",
   "version": "1.0.0",
-  "description": "Community platform for Claude Code developers to showcase projects and innovations",
+  "description": "Personal blog platform for highly opinionated solopreneur thoughts",
   "main": "server.js",
   "scripts": {
     "dev": "nodemon server.js",
@@ -11,14 +11,14 @@
     "setup": "npm install && npm run dev"
   },
   "keywords": [
-    "claude-code",
-    "community",
-    "showcase",
-    "developers",
-    "projects",
-    "collaboration"
+    "blog",
+    "personal-blog",
+    "weblog",
+    "solopreneur",
+    "opinionated",
+    "thoughts"
   ],
-  "author": "Claude Creations Community",
+  "author": "Censai",
   "license": "MIT",
   "dependencies": {
     "express": "^4.18.2",
