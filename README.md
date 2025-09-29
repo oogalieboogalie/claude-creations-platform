@@ -109,6 +109,8 @@ curl -X POST http://localhost:3001/api/projects \
   }'
 ```
 
+> **Note:** The `cli-submit.js` file is legacy from the original community platform and is not used for the blog functionality.
+
 ### **Full CLI Commands**
 ```bash
 # Authentication
