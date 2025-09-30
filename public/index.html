@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Claude Creations - Community Showcase</title>
+    <title>My Neurodivergent Digital Garden</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
     <style>
         * {
@@ -718,34 +718,35 @@
     <header>
         <nav class="container">
             <div class="logo">
-                <i class="fas fa-palette"></i> Claude Creations
+                <i class="fas fa-brain"></i> My Digital Garden
             </div>
             <ul class="nav-links">
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#api">API</a></li>
-                <li><a href="#community">Community</a></li>
+                <li><a href="#posts">Posts</a></li>
+                <li><a href="#thoughts">Thoughts</a></li>
+                <li><a href="#about">About</a></li>
             </ul>
             <div class="auth-buttons" id="authButtons">
-                <a href="#" class="btn btn-secondary" id="loginBtn" onclick="showAuthModal('login')">Login</a>
-                <a href="#" class="btn btn-primary" id="signupBtn" onclick="showAuthModal('signup')">Sign Up</a>
+                <a href="https://github.com/oogalieboogalie" class="btn btn-primary" target="_blank">
+                    <i class="fas fa-brands fa-github"></i> GitHub
+                </a>
             </div>
         </nav>
     </header>
 
     <section class="hero">
         <div class="container">
-            <h1>Claude Code Community Showcase</h1>
-            <p>Discover, share, and collaborate on amazing projects built with Claude Code</p>
+            <h1>Welcome to My Neurodivergent Playground</h1>
+            <p>A chaotic, creative space where ADHD meets web development. Expect the unexpected! ✨</p>
             <div style="margin-top: 1rem; opacity: 0.9; font-family: 'SF Mono', monospace; font-size: 0.9rem;">
-                <code>$ claude-submit submit --auto</code> → Share your creation instantly
+                <code>🧠 adhd.status === "hyperfocus" ? "building cool stuff" : "🦋✨"</code>
             </div>
             <div class="hero-buttons">
-                <a href="#projects" class="btn btn-primary">
-                    <i class="fas fa-rocket"></i> Explore Projects
+                <a href="#posts" class="btn btn-primary">
+                    <i class="fas fa-book-open"></i> Read My Thoughts
                 </a>
-                <button class="btn btn-secondary" onclick="showSubmitModal()">
-                    <i class="fas fa-plus"></i> Submit Project
-                </button>
+                <a href="#about" class="btn btn-secondary">
+                    <i class="fas fa-user"></i> About Me
+                </a>
             </div>
         </div>
     </section>
@@ -754,225 +755,90 @@
         <div class="main-content">
             <section id="stats" class="stats">
                 <div class="stat-card">
-                    <div class="stat-number" id="totalProjects">0</div>
-                    <div class="stat-label">Total Projects</div>
+                    <div class="stat-number">∞</div>
+                    <div class="stat-label">Random Ideas</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-number" id="totalUsers">0</div>
-                    <div class="stat-label">Community Members</div>
+                    <div class="stat-number">🧠</div>
+                    <div class="stat-label">Neurodivergent Brain</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-number" id="totalVotes">0</div>
-                    <div class="stat-label">Total Votes</div>
+                    <div class="stat-number">✨</div>
+                    <div class="stat-label">Hyperfocus Sessions</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-number" id="totalCategories">5</div>
-                    <div class="stat-label">Categories</div>
+                    <div class="stat-number">🦋</div>
+                    <div class="stat-label">Butterfly Thoughts</div>
                 </div>
             </section>
 
-            <section id="api" class="api-info">
-                <h3><i class="fas fa-terminal"></i> CLI Integration for Claude Code</h3>
-                <p>Submit projects directly from your terminal using our API:</p>
+            <section id="about" class="api-info">
+                <h3><i class="fas fa-user-astronaut"></i> About This Space</h3>
+                <p>Welcome to my personal corner of the internet! This is where I dump my thoughts, experiments, and creative chaos. Built for neurodivergent brains, by a neurodivergent brain.</p>
                 <div class="code-block">
-curl -X POST https://claude-creations.vercel.app/api/projects \
-  -H "Content-Type: application/json" \
-  -d '{
-    "creator_name": "your_username",
-    "title": "My Claude Code Project",
-    "description": "A new project created via curl.",
-    "github_url": "https://github.com/user/repo",
-    "tags": "automation,api,claude-code",
-    "category": "tools"
-  }'
+const me = {
+  interests: ["web dev", "adhd", "cool interactive stuff", "secret features"],
+  vibe: "chaotic good",
+  currentMood: () => Math.random() > 0.5 ? "🚀 hyperfocus" : "🦋 distracted",
+  fun_fact: "this site has easter eggs - try the Konami code!"
+};
                 </div>
-                <p><strong>Categories:</strong> tools, automation, web-apps, apis, experiments</p>
+                <p><strong>Pro tip:</strong> Hover over things, click around, and explore. There are secrets hidden everywhere! 🙈</p>
             </section>
 
-            <section id="projects">
+            <section id="posts">
                 <div class="filters">
-                    <input type="text" class="search-box" id="searchBox" placeholder="Search projects...">
+                    <input type="text" class="search-box" id="searchBox" placeholder="Search my thoughts...">
                     <select class="filter-select" id="categoryFilter">
-                        <option value="all">All Categories</option>
-                        <option value="tools">Tools</option>
-                        <option value="automation">Automation</option>
-                        <option value="web-apps">Web Apps</option>
-                        <option value="apis">APIs</option>
-                        <option value="experiments">Experiments</option>
+                        <option value="all">All Topics</option>
+                        <option value="dev">Development</option>
+                        <option value="adhd">ADHD Life</option>
+                        <option value="random">Random Musings</option>
+                        <option value="projects">Projects</option>
                     </select>
                     <select class="filter-select" id="sortFilter">
-                        <option value="created_at">Newest</option>
-                        <option value="votes">Most Voted</option>
-                        <option value="title">Alphabetical</option>
+                        <option value="created_at">Latest First</option>
+                        <option value="title">A to Z</option>
                     </select>
                 </div>
 
                 <div id="loading" class="loading">
                     <div class="spinner"></div>
-                    <p>Loading amazing projects...</p>
+                    <p>Loading thoughts from the void...</p>
                 </div>
 
                 <div id="projectsGrid" class="projects-grid" style="display: none;">
-                    <!-- Projects will be loaded here -->
+                    <!-- Blog posts will be loaded here -->
                 </div>
 
                 <div id="emptyState" class="empty-state" style="display: none;">
-                    <i class="fas fa-rocket" style="font-size: 3rem; color: #ddd; margin-bottom: 1rem;"></i>
-                    <h3>No projects found</h3>
-                    <p>Be the first to share your Claude Code creation!</p>
-                    <button class="btn btn-primary" style="margin-top: 1rem;" onclick="showSubmitModal()">
-                        <i class="fas fa-plus"></i> Submit First Project
-                    </button>
+                    <i class="fas fa-brain" style="font-size: 3rem; color: #64ffda; margin-bottom: 1rem;"></i>
+                    <h3>Nothing here yet!</h3>
+                    <p>The thoughts are still forming... Check back soon! Or maybe I got distracted. ADHD things. 🦋</p>
                 </div>
             </section>
         </div>
     </main>
 
     <!-- Project Submission Modal -->
-    <div id="submitModal" class="modal" style="display: none;">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Submit Your Claude Code Project</h2>
-                <span class="close" onclick="closeSubmitModal()">&times;</span>
-            </div>
-            <div class="modal-body">
-                <form id="submitForm">
-                    <div class="form-group">
-                        <label for="creatorName">Social Handle *</label>
-                        <input type="text" id="creatorName" name="creator_name" required placeholder="@yourhandle, Reddit username, etc.">
-                        <small style="color: #666; font-size: 0.9rem;">How you want to be credited</small>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="projectTitle">Project Title *</label>
-                        <input type="text" id="projectTitle" name="title" required placeholder="My Awesome Claude Code Project">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="projectDescription">Description *</label>
-                        <textarea id="projectDescription" name="description" rows="4" required placeholder="What does your project do? How did you build it with Claude Code?"></textarea>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="projectGithub">GitHub URL</label>
-                        <input type="url" id="projectGithub" name="github_url" placeholder="https://github.com/username/repo">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="projectDemo">Demo URL</label>
-                        <input type="url" id="projectDemo" name="demo_url" placeholder="https://your-project.vercel.app">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="projectCategory">Category *</label>
-                        <select id="projectCategory" name="category" required>
-                            <option value="">Select a category</option>
-                            <option value="tools">Tools & Utilities</option>
-                            <option value="automation">Automation & Scripts</option>
-                            <option value="web-apps">Web Applications</option>
-                            <option value="apis">APIs & Services</option>
-                            <option value="experiments">Experiments & Fun</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="projectTags">Tags</label>
-                        <input type="text" id="projectTags" name="tags" placeholder="claude-code, automation, api, web-app (comma separated)">
-                    </div>
-
-                    <div class="form-actions">
-                        <button type="button" class="btn btn-secondary" onclick="closeSubmitModal()">Cancel</button>
-                        <button type="submit" class="btn btn-primary">
-                            <i class="fas fa-rocket"></i> Submit Project
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <!-- Login/Register Modal -->
-    <div id="authModal" class="modal" style="display: none;">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 id="authTitle">Login to Claude Creations</h2>
-                <span class="close" onclick="closeAuthModal()">&times;</span>
-            </div>
-            <div class="modal-body">
-                <div id="loginForm" class="auth-form">
-                    <form onsubmit="handleLogin(event)">
-                        <div class="form-group">
-                            <label for="loginEmail">Email</label>
-                            <input type="email" id="loginEmail" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="loginPassword">Password</label>
-                            <input type="password" id="loginPassword" required>
-                        </div>
-                        <div class="form-actions">
-                            <button type="submit" class="btn btn-primary">Login</button>
-                        </div>
-                    </form>
-                    <p style="margin-top: 1rem; text-align: center;">
-                        Don't have an account?
-                        <a href="#" onclick="showRegisterForm()" style="color: #ff8c00;">Sign up here</a>
-                    </p>
-                </div>
-
-                <div id="registerForm" class="auth-form" style="display: none;">
-                    <form onsubmit="handleRegister(event)">
-                        <div class="form-group">
-                            <label for="registerUsername">Username</label>
-                            <input type="text" id="registerUsername" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="registerEmail">Email</label>
-                            <input type="email" id="registerEmail" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="registerPassword">Password</label>
-                            <input type="password" id="registerPassword" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="registerGithub">GitHub Username (optional)</label>
-                            <input type="text" id="registerGithub" placeholder="your-github-username">
-                        </div>
-                        <div class="form-actions">
-                            <button type="submit" class="btn btn-primary">Create Account</button>
-                        </div>
-                    </form>
-                    <p style="margin-top: 1rem; text-align: center;">
-                        Already have an account?
-                        <a href="#" onclick="showLoginForm()" style="color: #ff8c00;">Login here</a>
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <script>
-        // API base URL
+        // API base URL (kept for future use)
         const API_BASE = window.location.origin + '/api';
 
-        // Auth token management
-        let authToken = localStorage.getItem('authToken');
-
-        // Load projects on page load
+        // Load on page load
         document.addEventListener('DOMContentLoaded', function() {
-            loadProjects();
-            loadStats();
-            setupEventListeners();
-            updateAuthUI();
+            showEmptyState();
+            setupInteractiveFeatures();
         });
 
-        function setupEventListeners() {
-            // Search and filter
-            document.getElementById('searchBox').addEventListener('input', debounce(loadProjects, 300));
-            document.getElementById('categoryFilter').addEventListener('change', loadProjects);
-            document.getElementById('sortFilter').addEventListener('change', loadProjects);
+        function showEmptyState() {
+            // Just show the empty state for now (personal blog - posts coming soon!)
+            const loading = document.getElementById('loading');
+            const emptyState = document.getElementById('emptyState');
             
-            // ADHD-friendly interactive features
-            setupInteractiveFeatures();
+            if (loading) loading.style.display = 'none';
+            if (emptyState) emptyState.style.display = 'block';
         }
 
         function setupInteractiveFeatures() {
